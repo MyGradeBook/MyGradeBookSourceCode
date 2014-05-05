@@ -1986,7 +1986,7 @@ namespace MyGradeBook
 
             //Coloring
             lblGrade.ForeColor = Color.White;
-            if (gradeTotal >= .9)
+            if (gradeTotal >= .8999)
             {
                 lblGrade.BackColor = Color.LimeGreen;
             }
@@ -2081,7 +2081,7 @@ namespace MyGradeBook
 
             //Color
             lblWeightedGrade.ForeColor = Color.White;
-            if (weightedGradeTotal >= .9)
+            if (weightedGradeTotal >= .8999)
             {
                 lblWeightedGrade.BackColor = Color.LimeGreen;
             }
