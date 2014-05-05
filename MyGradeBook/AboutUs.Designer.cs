@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAboutUs));
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.lblDevelopers = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label2
+            // lblVersion
             // 
-            this.label2.Location = new System.Drawing.Point(1, 290);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(438, 19);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Gradebook v1.00";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblVersion.Location = new System.Drawing.Point(1, 290);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(438, 19);
+            this.lblVersion.TabIndex = 5;
+            this.lblVersion.Text = "Version";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDevelopers
             // 
@@ -80,7 +80,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 311);
             this.Controls.Add(this.lblInfo);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblDevelopers);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -97,7 +97,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblDevelopers;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblInfo;

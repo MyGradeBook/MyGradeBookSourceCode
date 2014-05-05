@@ -11,10 +11,25 @@ using System.IO;
 
 
 /* ********************************* */
-/* ********** MyGradeBook ********** */
+/* ********* MyGradeBook *********** */
+/* ********************************* */
+
+/* ********************************* */
+/* ***** Developers From A-Z: ****** */
+/* ********************************* */
+/* ******* John Giblin ************* */
+/* ******* David Lee *************** */
+/* ******* Sean Mottles ************ */
+/* ******* Ivan Vu ***************** */
 /* ********************************* */
 
 
+
+/* Please do not distribute without permission */
+/* Contact us at csufmygradebook@gmail.com */
+
+
+// DEVELOPERS NOTES:
 // TO BE COMPLETED:
 // Saving sys msgs to txt file with append (events only ones left)
 // Help
@@ -1975,15 +1990,15 @@ namespace MyGradeBook
             {
                 lblGrade.BackColor = Color.LimeGreen;
             }
-            if (gradeTotal < .89999)
+            if (gradeTotal < .8999)
             {
                 lblGrade.BackColor = Color.Green;
             }
-            if (gradeTotal < .79999)
+            if (gradeTotal < .7999)
             {
                 lblGrade.BackColor = Color.Orange;
             }
-            if (gradeTotal < .69999)
+            if (gradeTotal < .6999)
             {
                 lblGrade.BackColor = Color.IndianRed;
             }
@@ -2070,15 +2085,15 @@ namespace MyGradeBook
             {
                 lblWeightedGrade.BackColor = Color.LimeGreen;
             }
-            if (weightedGradeTotal < .89999)
+            if (weightedGradeTotal < .8999)
             {
                 lblWeightedGrade.BackColor = Color.Green;
             }
-            if (weightedGradeTotal < .79999)
+            if (weightedGradeTotal < .7999)
             {
                 lblWeightedGrade.BackColor = Color.Orange;
             }
-            if (weightedGradeTotal < .69999)
+            if (weightedGradeTotal < .6999)
             {
                 lblWeightedGrade.BackColor = Color.IndianRed;
             }
