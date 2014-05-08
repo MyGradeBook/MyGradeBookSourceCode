@@ -24,8 +24,8 @@ using System.IO;
 /* ********************************* */
 
 
-
-/* Please do not distribute without permission */
+/* For the latest version go to www.github.com/mygradebook */
+/* Please do not redistribute without giving proper credit */
 /* Contact us at csufmygradebook@gmail.com */
 
 
@@ -41,10 +41,14 @@ namespace MyGradeBook
 {
     public partial class frmMain : Form
     {
-        //Constants
+        //Constants        
         const int NUMBER_OF_CLASSES = 6;
         const int NUMBER_OF_ITEMS = 10;
         const char DELIM = ',';
+        const string resourceFolder = "MyGradeBook Data";
+        const string numbersOnlyMsg = ("Only numbers are allowed. \n\n" +
+                                        "For empty cells input 0.  \n" +
+                                        "For percents use decimals. ");
 
         //Variables
         int targetGradeStatus = 0; //Setting to default
@@ -59,10 +63,6 @@ namespace MyGradeBook
         string[] class0ItemNames = new string[NUMBER_OF_ITEMS];
         string[] class0ItemStatus = new string[NUMBER_OF_ITEMS];
 
-        string[] class0PointsEarnedString = new string[NUMBER_OF_ITEMS];
-        string[] class0PointsPossibleString = new string[NUMBER_OF_ITEMS];
-        string[] class0WeightsString = new string[NUMBER_OF_ITEMS];
-
         double[] class0PointsEarned = new double[NUMBER_OF_ITEMS];
         double[] class0PointsPossible = new double[NUMBER_OF_ITEMS];
         double[] class0Grades = new double[NUMBER_OF_ITEMS];
@@ -72,10 +72,6 @@ namespace MyGradeBook
         //Declaring arrays for class1
         string[] class1ItemNames = new string[NUMBER_OF_ITEMS];
         string[] class1ItemStatus = new string[NUMBER_OF_ITEMS];
-
-        string[] class1PointsEarnedString = new string[NUMBER_OF_ITEMS];
-        string[] class1PointsPossibleString = new string[NUMBER_OF_ITEMS];
-        string[] class1WeightsString = new string[NUMBER_OF_ITEMS];
 
         double[] class1PointsEarned = new double[NUMBER_OF_ITEMS];
         double[] class1PointsPossible = new double[NUMBER_OF_ITEMS];
@@ -87,10 +83,6 @@ namespace MyGradeBook
         string[] class2ItemNames = new string[NUMBER_OF_ITEMS];
         string[] class2ItemStatus = new string[NUMBER_OF_ITEMS];
 
-        string[] class2PointsEarnedString = new string[NUMBER_OF_ITEMS];
-        string[] class2PointsPossibleString = new string[NUMBER_OF_ITEMS];
-        string[] class2WeightsString = new string[NUMBER_OF_ITEMS];
-
         double[] class2PointsEarned = new double[NUMBER_OF_ITEMS];
         double[] class2PointsPossible = new double[NUMBER_OF_ITEMS];
         double[] class2Grades = new double[NUMBER_OF_ITEMS];
@@ -100,10 +92,6 @@ namespace MyGradeBook
         //Declaring arrays for class3
         string[] class3ItemNames = new string[NUMBER_OF_ITEMS];
         string[] class3ItemStatus = new string[NUMBER_OF_ITEMS];
-
-        string[] class3PointsEarnedString = new string[NUMBER_OF_ITEMS];
-        string[] class3PointsPossibleString = new string[NUMBER_OF_ITEMS];
-        string[] class3WeightsString = new string[NUMBER_OF_ITEMS];
 
         double[] class3PointsEarned = new double[NUMBER_OF_ITEMS];
         double[] class3PointsPossible = new double[NUMBER_OF_ITEMS];
@@ -115,10 +103,6 @@ namespace MyGradeBook
         string[] class4ItemNames = new string[NUMBER_OF_ITEMS];
         string[] class4ItemStatus = new string[NUMBER_OF_ITEMS];
 
-        string[] class4PointsEarnedString = new string[NUMBER_OF_ITEMS];
-        string[] class4PointsPossibleString = new string[NUMBER_OF_ITEMS];
-        string[] class4WeightsString = new string[NUMBER_OF_ITEMS];
-
         double[] class4PointsEarned = new double[NUMBER_OF_ITEMS];
         double[] class4PointsPossible = new double[NUMBER_OF_ITEMS];
         double[] class4Grades = new double[NUMBER_OF_ITEMS];
@@ -128,10 +112,6 @@ namespace MyGradeBook
         //Declaring arrays for class5
         string[] class5ItemNames = new string[NUMBER_OF_ITEMS];
         string[] class5ItemStatus = new string[NUMBER_OF_ITEMS];
-
-        string[] class5PointsEarnedString = new string[NUMBER_OF_ITEMS];
-        string[] class5PointsPossibleString = new string[NUMBER_OF_ITEMS];
-        string[] class5WeightsString = new string[NUMBER_OF_ITEMS];
 
         double[] class5PointsEarned = new double[NUMBER_OF_ITEMS];
         double[] class5PointsPossible = new double[NUMBER_OF_ITEMS];
@@ -154,6 +134,9 @@ namespace MyGradeBook
 
         private void Main_Load(object sender, EventArgs e)
         {
+            //Create directory
+            Create_Directory();
+
             //start a new section in log
             lblSysMsg.Text = "----------------------------------------------------------------";
             Sys_Msg_Save_Txt();
@@ -225,16 +208,25 @@ namespace MyGradeBook
         /*
          */
 
+        /* Create Directory */
+        public void Create_Directory()
+        {
+            if (!Directory.Exists(resourceFolder))
+            {
+                Directory.CreateDirectory(resourceFolder);
+            }
+        }
+
         /* Save SysMsgs */
         public void Sys_Msg_Save_Txt()
         {
             int sysMsgLines = 0;
 
             //If log file reaches more than 10,000 lines makes a new one
-            if (File.Exists("SysMsgs.txt") && sysMsgLines < 10000)
+            if (File.Exists(Path.Combine(resourceFolder,"SysMsgs.txt")) && sysMsgLines < 10000)
             {
                 //Appends to file
-                FileStream outFile = new FileStream("SysMsgs.txt", FileMode.Append, FileAccess.Write);
+                FileStream outFile = new FileStream(Path.Combine(resourceFolder,"SysMsgs.txt"), FileMode.Append, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(outFile);
 
                 writer.WriteLine("[" + DateTime.Now.ToString() + "]:  " + lblSysMsg.Text);
@@ -242,12 +234,12 @@ namespace MyGradeBook
                 writer.Close();
                 outFile.Close();                
 
-                sysMsgLines = File.ReadAllLines("SysMsgs.txt").Length;
+                sysMsgLines = File.ReadAllLines(Path.Combine(resourceFolder,"SysMsgs.txt")).Length;
             }
             else
             {
                 //Writes over file
-                FileStream outFile = new FileStream("SysMsgs.txt", FileMode.Create, FileAccess.Write);
+                FileStream outFile = new FileStream(Path.Combine(resourceFolder,"SysMsgs.txt"), FileMode.Create, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(outFile);
 
                 writer.WriteLine("[" + DateTime.Now.ToString() + "]:  " + lblSysMsg.Text);
@@ -275,7 +267,7 @@ namespace MyGradeBook
 
             //Saving to Comma Delimited
             //Class0
-            FileStream outFileClass0 = new FileStream("class0.txt", FileMode.Create, FileAccess.Write);
+            FileStream outFileClass0 = new FileStream(Path.Combine(resourceFolder,"class0.txt"), FileMode.Create, FileAccess.Write);
             StreamWriter writerClass0 = new StreamWriter(outFileClass0);
             for (int i = 0; i < NUMBER_OF_ITEMS; i++)
             {
@@ -300,7 +292,7 @@ namespace MyGradeBook
 
             //Saving to Comma Delimited
             //Class1
-            FileStream outFileclass1 = new FileStream("class1.txt", FileMode.Create, FileAccess.Write);
+            FileStream outFileclass1 = new FileStream(Path.Combine(resourceFolder,"class1.txt"), FileMode.Create, FileAccess.Write);
             StreamWriter writerclass1 = new StreamWriter(outFileclass1);
             for (int i = 0; i < NUMBER_OF_ITEMS; i++)
             {
@@ -325,7 +317,7 @@ namespace MyGradeBook
 
             //Saving to Comma Delimited
             //Class2
-            FileStream outFileclass2 = new FileStream("class2.txt", FileMode.Create, FileAccess.Write);
+            FileStream outFileclass2 = new FileStream(Path.Combine(resourceFolder,"class2.txt"), FileMode.Create, FileAccess.Write);
             StreamWriter writerclass2 = new StreamWriter(outFileclass2);
             for (int i = 0; i < NUMBER_OF_ITEMS; i++)
             {
@@ -350,7 +342,7 @@ namespace MyGradeBook
 
             //Saving to Comma Delimited
             //Class3
-            FileStream outFileclass3 = new FileStream("class3.txt", FileMode.Create, FileAccess.Write);
+            FileStream outFileclass3 = new FileStream(Path.Combine(resourceFolder,"class3.txt"), FileMode.Create, FileAccess.Write);
             StreamWriter writerclass3 = new StreamWriter(outFileclass3);
             for (int i = 0; i < NUMBER_OF_ITEMS; i++)
             {
@@ -375,7 +367,7 @@ namespace MyGradeBook
 
             //Saving to Comma Delimited
             //Class4
-            FileStream outFileclass4 = new FileStream("class4.txt", FileMode.Create, FileAccess.Write);
+            FileStream outFileclass4 = new FileStream(Path.Combine(resourceFolder,"class4.txt"), FileMode.Create, FileAccess.Write);
             StreamWriter writerclass4 = new StreamWriter(outFileclass4);
             for (int i = 0; i < NUMBER_OF_ITEMS; i++)
             {
@@ -400,7 +392,7 @@ namespace MyGradeBook
 
             //Saving to Comma Delimited
             //Class5
-            FileStream outFileclass5 = new FileStream("class5.txt", FileMode.Create, FileAccess.Write);
+            FileStream outFileclass5 = new FileStream(Path.Combine(resourceFolder,"class5.txt"), FileMode.Create, FileAccess.Write);
             StreamWriter writerclass5 = new StreamWriter(outFileclass5);
             for (int i = 0; i < NUMBER_OF_ITEMS; i++)
             {
@@ -429,14 +421,14 @@ namespace MyGradeBook
             Sys_Msg_Save_Txt();
 
             //Looks for file, creates if does not exsist
-            if (File.Exists("colorScheme.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"colorScheme.txt")))
             {
-                colorScheme = File.ReadAllText("colorScheme.txt");
+                colorScheme = File.ReadAllText(Path.Combine(resourceFolder,"colorScheme.txt"));
             }
             else
             {
                 colorScheme = "(default)";
-                File.WriteAllText("colorScheme.txt", colorScheme);
+                File.WriteAllText(Path.Combine(resourceFolder,"colorScheme.txt"), colorScheme);
             }
 
             //Set colorScheme
@@ -453,9 +445,9 @@ namespace MyGradeBook
             Sys_Msg_Save_Txt();
 
             //classNames
-            if (File.Exists("classNames.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"classNames.txt")))
             {
-                classNames = File.ReadAllLines("classNames.txt");
+                classNames = File.ReadAllLines(Path.Combine(resourceFolder,"classNames.txt"));
 
                 for (int i = 0; i < NUMBER_OF_CLASSES; i++)
                 {
@@ -467,7 +459,7 @@ namespace MyGradeBook
                     pnlClassBtns.Controls["txtClassName" + i].Text = classNames[i];
                 }
             }
-            else File.WriteAllLines("classNames.txt", classNames);
+            else File.WriteAllLines(Path.Combine(resourceFolder,"classNames.txt"), classNames);
 
             //SysMsg
             lblSysMsg.Text = "Load_Class_Names successful";
@@ -480,10 +472,10 @@ namespace MyGradeBook
             Sys_Msg_Save_Txt();
 
             //Looks for files: if exsists read, if does not exsist create one
-            if (File.Exists("class0.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"class0.txt")))
             {
                 //Streams
-                FileStream inFile = new FileStream("class0.txt", FileMode.Open, FileAccess.Read);
+                FileStream inFile = new FileStream(Path.Combine(resourceFolder,"class0.txt"), FileMode.Open, FileAccess.Read);
                 StreamReader reader = new StreamReader(inFile);
                 //Variables to read records
                 string recordIn;
@@ -543,10 +535,10 @@ namespace MyGradeBook
             Sys_Msg_Save_Txt();
 
 
-            if (File.Exists("class1.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"class1.txt")))
             {
                 //Streams
-                FileStream inFile = new FileStream("class1.txt", FileMode.Open, FileAccess.Read);
+                FileStream inFile = new FileStream(Path.Combine(resourceFolder,"class1.txt"), FileMode.Open, FileAccess.Read);
                 StreamReader reader = new StreamReader(inFile);
                 //Variables to read records
                 string recordIn;
@@ -606,10 +598,10 @@ namespace MyGradeBook
             lblSysMsg.Text = "Load_Class_2 started";
             Sys_Msg_Save_Txt();
 
-            if (File.Exists("class2.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"class2.txt")))
             {
                 //Streams
-                FileStream inFile = new FileStream("class2.txt", FileMode.Open, FileAccess.Read);
+                FileStream inFile = new FileStream(Path.Combine(resourceFolder,"class2.txt"), FileMode.Open, FileAccess.Read);
                 StreamReader reader = new StreamReader(inFile);
                 //Variables to read records
                 string recordIn;
@@ -668,10 +660,10 @@ namespace MyGradeBook
             lblSysMsg.Text = "Load_Class_3 started";
             Sys_Msg_Save_Txt();
 
-            if (File.Exists("class3.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"class3.txt")))
             {
                 //Streams
-                FileStream inFile = new FileStream("class3.txt", FileMode.Open, FileAccess.Read);
+                FileStream inFile = new FileStream(Path.Combine(resourceFolder,"class3.txt"), FileMode.Open, FileAccess.Read);
                 StreamReader reader = new StreamReader(inFile);
                 //Variables to read records
                 string recordIn;
@@ -730,10 +722,10 @@ namespace MyGradeBook
             lblSysMsg.Text = "Load_Class_4 started";
             Sys_Msg_Save_Txt();
 
-            if (File.Exists("class4.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"class4.txt")))
             {
                 //Streams
-                FileStream inFile = new FileStream("class4.txt", FileMode.Open, FileAccess.Read);
+                FileStream inFile = new FileStream(Path.Combine(resourceFolder,"class4.txt"), FileMode.Open, FileAccess.Read);
                 StreamReader reader = new StreamReader(inFile);
                 //Variables to read records
                 string recordIn;
@@ -792,10 +784,10 @@ namespace MyGradeBook
             lblSysMsg.Text = "Load_Class_5 started";
             Sys_Msg_Save_Txt();
 
-            if (File.Exists("class5.txt"))
+            if (File.Exists(Path.Combine(resourceFolder,"class5.txt")))
             {
                 //Streams
-                FileStream inFile = new FileStream("class5.txt", FileMode.Open, FileAccess.Read);
+                FileStream inFile = new FileStream(Path.Combine(resourceFolder,"class5.txt"), FileMode.Open, FileAccess.Read);
                 StreamReader reader = new StreamReader(inFile);
                 //Variables to read records
                 string recordIn;
@@ -2333,7 +2325,7 @@ namespace MyGradeBook
         /*
          */        
         //=======================================================================================================
-        /* COLORS */
+        /* COLORING */
         //=======================================================================================================
         /*
          */ 
@@ -2425,7 +2417,7 @@ namespace MyGradeBook
             lblSysMsg.Text = "Color_Scheme_Save started";
             Sys_Msg_Save_Txt();
 
-            File.WriteAllText("colorScheme.txt", colorScheme);
+            File.WriteAllText(Path.Combine(resourceFolder,"colorScheme.txt"), colorScheme);
 
             //SysMsg
             lblSysMsg.Text = "Color_Scheme_Save successful";
@@ -2854,7 +2846,7 @@ namespace MyGradeBook
                 }
 
                 //Store array values to text file
-                File.WriteAllLines("classNames.txt", classNames);
+                File.WriteAllLines(Path.Combine(resourceFolder,"classNames.txt"), classNames);
 
                 //Change text and color
                 btnSettings.Text = ""; //REMOVED WITH IMAGE
@@ -4593,7 +4585,7 @@ namespace MyGradeBook
                 double parsedValue;
                 if (!double.TryParse(txtTargetGrade.Text, out parsedValue))
                 {
-                    MessageBox.Show("Only numbers are allowed, if blank input 0");
+                    MessageBox.Show(numbersOnlyMsg.ToString());
                     txtTargetGrade.Text = "0";
                     txtTargetGrade.Focus();
                 }
@@ -5239,7 +5231,7 @@ namespace MyGradeBook
         /*
          */
         //=======================================================================================================
-        /* CHANGE EVENTS */
+        /* ITEM INPUT EVENTS */
         //=======================================================================================================
         /*
          */
@@ -5726,6 +5718,58 @@ namespace MyGradeBook
             Statistics();
         }
 
+        /* Item Name No Commmas */
+        private void txtItemName0_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName6_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName7_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName8_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+        private void txtItemName9_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == DELIM)
+                e.Handled = true;
+        }
+
         /* Item Name on Leave */
         private void txtItemName0_Leave(object sender, EventArgs e)
         {
@@ -5826,7 +5870,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned0.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned0.Focus();
             }
@@ -5838,7 +5882,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned1.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned1.Focus();
             }
@@ -5850,7 +5894,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned2.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned2.Focus();
             }
@@ -5862,7 +5906,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned3.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned3.Focus();
             }
@@ -5874,7 +5918,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned4.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned4.Focus();
             }
@@ -5886,7 +5930,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned5.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned5.Focus();
             }
@@ -5898,7 +5942,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned6.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned6.Focus();
             }
@@ -5910,7 +5954,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned7.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned7.Focus();
             }
@@ -5922,7 +5966,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned8.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned8.Focus();
             }
@@ -5934,7 +5978,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemEarned9.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemEarned9.Focus();
             }
@@ -5990,7 +6034,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible0.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible0.Focus();
             }
@@ -6002,7 +6046,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible1.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible1.Focus();
             }
@@ -6014,7 +6058,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible2.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible2.Focus();
             }
@@ -6026,7 +6070,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible3.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible3.Focus();
             }
@@ -6038,7 +6082,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible4.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible4.Focus();
             }
@@ -6050,7 +6094,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible5.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible5.Focus();
             }
@@ -6062,7 +6106,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible6.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible6.Focus();
             }
@@ -6074,7 +6118,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible7.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible7.Focus();
             }
@@ -6086,7 +6130,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible8.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible8.Focus();
             }
@@ -6098,7 +6142,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemPossible9.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemPossible9.Focus();
             }
@@ -6154,7 +6198,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight0.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight0.Focus();
             }
@@ -6166,7 +6210,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight1.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight1.Focus();
             }
@@ -6178,7 +6222,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight2.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight2.Focus();
             }
@@ -6190,7 +6234,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight3.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight3.Focus();
             }
@@ -6202,7 +6246,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight4.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight4.Focus();
             }
@@ -6214,7 +6258,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight5.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight5.Focus();
             }
@@ -6226,7 +6270,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight6.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight6.Focus();
             }
@@ -6238,7 +6282,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight7.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight7.Focus();
             }
@@ -6250,7 +6294,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight8.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight8.Focus();
             }
@@ -6262,7 +6306,7 @@ namespace MyGradeBook
             double parsedValue;
             if (!double.TryParse(txtItemWeight9.Text, out parsedValue))
             {
-                MessageBox.Show("Only numbers are allowed, if blank input 0");
+                MessageBox.Show(numbersOnlyMsg.ToString());
                 Set_Txt_Class_CurrSel();
                 txtItemWeight9.Focus();
             }

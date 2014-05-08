@@ -180,6 +180,7 @@
             this.txtItemName1.Name = "txtItemName1";
             this.txtItemName1.Size = new System.Drawing.Size(100, 20);
             this.txtItemName1.TabIndex = 9;
+            this.txtItemName1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName1_KeyPress);
             this.txtItemName1.Leave += new System.EventHandler(this.txtItemName1_Leave);
             // 
             // txtItemEarned1
@@ -228,6 +229,7 @@
             this.txtItemName2.Name = "txtItemName2";
             this.txtItemName2.Size = new System.Drawing.Size(100, 20);
             this.txtItemName2.TabIndex = 16;
+            this.txtItemName2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName2_KeyPress);
             this.txtItemName2.Leave += new System.EventHandler(this.txtItemName2_Leave);
             // 
             // txtItemPossible3
@@ -256,6 +258,7 @@
             this.txtItemName3.Name = "txtItemName3";
             this.txtItemName3.Size = new System.Drawing.Size(100, 20);
             this.txtItemName3.TabIndex = 23;
+            this.txtItemName3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName3_KeyPress);
             this.txtItemName3.Leave += new System.EventHandler(this.txtItemName3_Leave);
             // 
             // btnClass0
@@ -624,6 +627,7 @@
             this.txtItemName4.Name = "txtItemName4";
             this.txtItemName4.Size = new System.Drawing.Size(100, 20);
             this.txtItemName4.TabIndex = 30;
+            this.txtItemName4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName4_KeyPress);
             this.txtItemName4.Leave += new System.EventHandler(this.txtItemName4_Leave);
             // 
             // txtItemWeightedGrade5
@@ -690,6 +694,7 @@
             this.txtItemName5.Name = "txtItemName5";
             this.txtItemName5.Size = new System.Drawing.Size(100, 20);
             this.txtItemName5.TabIndex = 37;
+            this.txtItemName5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName5_KeyPress);
             this.txtItemName5.Leave += new System.EventHandler(this.txtItemName5_Leave);
             // 
             // lblSysMsg
@@ -819,6 +824,7 @@
             this.txtItemName6.Name = "txtItemName6";
             this.txtItemName6.Size = new System.Drawing.Size(100, 20);
             this.txtItemName6.TabIndex = 44;
+            this.txtItemName6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName6_KeyPress);
             this.txtItemName6.Leave += new System.EventHandler(this.txtItemName6_Leave);
             // 
             // txtItemWeightedGrade7
@@ -885,6 +891,7 @@
             this.txtItemName7.Name = "txtItemName7";
             this.txtItemName7.Size = new System.Drawing.Size(100, 20);
             this.txtItemName7.TabIndex = 51;
+            this.txtItemName7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName7_KeyPress);
             this.txtItemName7.Leave += new System.EventHandler(this.txtItemName7_Leave);
             // 
             // txtItemWeightedGrade8
@@ -951,6 +958,7 @@
             this.txtItemName8.Name = "txtItemName8";
             this.txtItemName8.Size = new System.Drawing.Size(100, 20);
             this.txtItemName8.TabIndex = 58;
+            this.txtItemName8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName8_KeyPress);
             this.txtItemName8.Leave += new System.EventHandler(this.txtItemName8_Leave);
             // 
             // txtItemWeightedGrade9
@@ -1017,6 +1025,7 @@
             this.txtItemName9.Name = "txtItemName9";
             this.txtItemName9.Size = new System.Drawing.Size(100, 20);
             this.txtItemName9.TabIndex = 65;
+            this.txtItemName9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName9_KeyPress);
             this.txtItemName9.Leave += new System.EventHandler(this.txtItemName9_Leave);
             // 
             // txtItemWeightedGrade0
@@ -1083,6 +1092,7 @@
             this.txtItemName0.Name = "txtItemName0";
             this.txtItemName0.Size = new System.Drawing.Size(100, 20);
             this.txtItemName0.TabIndex = 2;
+            this.txtItemName0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemName0_KeyPress);
             this.txtItemName0.Leave += new System.EventHandler(this.txtItemName0_Leave);
             // 
             // pnlItems

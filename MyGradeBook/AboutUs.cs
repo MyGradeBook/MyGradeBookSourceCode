@@ -19,7 +19,7 @@ namespace MyGradeBook
 
         private void AboutUs_Load(object sender, EventArgs e)
         {
-            lblDevelopers.Text = ("Developers From A-Z: \n\n" + 
+            lblDevelopers.Text = ("Developers From A-Z: \n" + 
                                     "John Giblin \n" +
                                     "David Lee \n" + 
                                     "Sean Mottles \n" +
@@ -29,8 +29,15 @@ namespace MyGradeBook
                             "We hoped to create something useful for a college student. \n" +
                             "Please report any bugs to csufmygradebook@gmail.com, thanks. \n");
 
+            lnkGitHub.Text = "Latest Version";
+
             lblVersion.Text = "MyGradeBook Beta Release";
 
+        }
+
+        private void lnkGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://github.com/mygradebook");
         }
     }
 }
